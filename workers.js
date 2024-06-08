@@ -120,33 +120,33 @@ async function fetchAndApply(request) {
   return appendJavascript(response, SLUG_TO_PAGE);
 }
 
-class MetaRewriter {
-  element(element) {
-    if (PAGE_TITLE !== '') {
-      if (element.getAttribute('property') === 'og:title'
-        || element.getAttribute('name') === 'twitter:title') {
-        element.setAttribute('content', PAGE_TITLE);
-      }
-      if (element.tagName === 'title') {
-        element.setInnerContent(PAGE_TITLE);
-      }
-    }
-    if (PAGE_DESCRIPTION !== '') {
-      if (element.getAttribute('name') === 'description'
-        || element.getAttribute('property') === 'og:description'
-        || element.getAttribute('name') === 'twitter:description') {
-        element.setAttribute('content', PAGE_DESCRIPTION);
-      }
-    }
-    if (element.getAttribute('property') === 'og:url'
-      || element.getAttribute('name') === 'twitter:url') {
-      element.setAttribute('content', MY_DOMAIN);
-    }
-    if (element.getAttribute('name') === 'apple-itunes-app') {
-      element.remove();
-    }
-  }
-}
+// class MetaRewriter {
+//   element(element) {
+//     if (PAGE_TITLE !== '') {
+//       if (element.getAttribute('property') === 'og:title'
+//         || element.getAttribute('name') === 'twitter:title') {
+//         element.setAttribute('content', PAGE_TITLE);
+//       }
+//       if (element.tagName === 'title') {
+//         element.setInnerContent(PAGE_TITLE);
+//       }
+//     }
+//     if (PAGE_DESCRIPTION !== '') {
+//       if (element.getAttribute('name') === 'description'
+//         || element.getAttribute('property') === 'og:description'
+//         || element.getAttribute('name') === 'twitter:description') {
+//         element.setAttribute('content', PAGE_DESCRIPTION);
+//       }
+//     }
+//     if (element.getAttribute('property') === 'og:url'
+//       || element.getAttribute('name') === 'twitter:url') {
+//       element.setAttribute('content', MY_DOMAIN);
+//     }
+//     if (element.getAttribute('name') === 'apple-itunes-app') {
+//       element.remove();
+//     }
+//   }
+// }
 
 class HeadRewriter {
   element(element) {
@@ -280,8 +280,8 @@ class BodyRewriter {
 
 async function appendJavascript(res, SLUG_TO_PAGE) {
   return new HTMLRewriter()
-    .on('title', new MetaRewriter())
-    .on('meta', new MetaRewriter())
+    // .on('title', new MetaRewriter())
+    // .on('meta', new MetaRewriter())
     .on('head', new HeadRewriter())
     .on('body', new BodyRewriter(SLUG_TO_PAGE))
     .transform(res);
